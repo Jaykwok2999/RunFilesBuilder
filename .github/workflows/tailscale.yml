@@ -108,36 +108,60 @@ jobs:
           mv x86_64/depends/luci-app-tailscale*.ipk x86_64
           mv a53/depends/luci-app-tailscale*.ipk a53
       
-      - name: Create install.sh 
+      - name: Create install.sh scripts
         run: |
-            echo -e "#!/bin/sh\n\nopkg update\nif [ \$? -ne 0 ]; then\n    echo \"update failed\"\n    exit 1\nfi\nopkg install depends/*.ipk --force-depends\nopkg install *.ipk --force-depends" > x86_64/install.sh
-            chmod +x x86_64/install.sh
-            cp x86_64/install.sh a53/
-  
-      - name: Create self-extracting archives
+          cat <<EOF > tailscale_x86_64/install.sh
+          #!/bin/sh
+          opkg update
+          if [ $? -ne 0 ]; then
+              echo "update failed。"
+              exit 1
+          fi
+          opkg install *.ipk
+          EOF
+          chmod +x tailscale_x86_64/install.sh
+          cp tailscale_x86_64/install.sh tailscale_aarch64_cortex-a53/install.sh
+          
+
+      - name: Move tailscale directories to makeself
         run: |
-            mv -f x86_64 makeself
-            mv -f a53 makeself
-            cd makeself
-            ipk_file=$(ls x86_64/*.ipk)
-            appversion=$(basename "$ipk_file" | grep -oP '\d+\.\d+\.\d+')
-            echo "APP_VERSION=$appversion" >> $GITHUB_ENV
-            release_name=$(TZ="Asia/Shanghai" date +'%Y-%m-%d %H:%M Build')
-            echo "RELEASE_NAME=$release_name" >> $GITHUB_ENV
-            ./makeself.sh x86_64/ tailscale_x86_64_$appversion.run "by github action" ./install.sh
-            ./makeself.sh a53/ tailscale_aarch64_cortex-a53_$appversion.run "by github action" ./install.sh
-            
-            
-      
-      - name: Upload all .run files to GitHub Release
+          mv tailscale_x86_64 makeself/
+          mv tailscale_aarch64_cortex-a53 makeself/
+
+      - name: Create self-extracting packages
+        run: |
+          cd makeself
+          ./makeself.sh tailscale_x86_64/ tailscale_${{ env.LATEST_TAG }}_x86_64.run "by github action" ./install.sh
+          ./makeself.sh tailscale_aarch64_cortex-a53/ tailscale_${{ env.LATEST_TAG }}_aarch64_cortex-a53.run "by github action" ./install.sh
+          
+
+      - name: Check file sizes
+        run: |
+          ls -lh makeself/tailscale_*.run
+
+      - name: Fetch latest release details
+        id: fetch_release_details
+        run: |
+          extra_content="![Github](https://img.shields.io/badge/Tailscale.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/Jaykwok2999/RunFilesBuilder/${{ env.APP_VERSION }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
+          sed -i "1i$extra_content" "${{ github.workspace }}/info.md"
+
+
+      - name: Generate new tag & release
+        uses: softprops/action-gh-release@v2.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.LATEST_TAG }}
+          target_commitish: ${{ github.ref_name }}
+          prerelease: false
+          body_path: ${{ github.workspace }}/common.md
+
+      - name: Upload run files as release assets
         uses: softprops/action-gh-release@v2.1.0
         with:
-          tag_name: ${{ env.APP_VERSION }}
-          name: "Tailscale-${{ env.APP_VERSION }}"
-          body: "![Github](https://img.shields.io/badge/Tailscale.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/Jaykwok2999/RunFilesBuilder/${{ env.APP_VERSION }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
-          files: makeself/*.run
+          tag_name: ${{ env.LATEST_TAG }}
+          name: "tailscale-${{ env.LATEST_TAG }}"
+          files: makeself/tailscale_*.run
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-   
