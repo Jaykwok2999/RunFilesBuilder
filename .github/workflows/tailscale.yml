@@ -108,19 +108,11 @@ jobs:
           mv x86_64/depends/luci-app-tailscale*.ipk x86_64
           mv a53/depends/luci-app-tailscale*.ipk a53
       
-      - name: Create install.sh scripts
+      - name: Create install.sh 
         run: |
-          cat <<EOF > x86_64/install.sh
-          #!/bin/sh
-          opkg update
-          if [ $? -ne 0 ]; then
-              echo "update failed。"
-              exit 1
-          fi
-          opkg install *.ipk
-          EOF
-          chmod +x x86_64/install.sh
-          cp x86_64/install.sh aarch64_cortex-a53/install.sh
+            echo -e "#!/bin/sh\n\nopkg update\nif [ \$? -ne 0 ]; then\n    echo \"update failed\"\n    exit 1\nfi\nopkg install depends/*.ipk --force-depends\nopkg install *.ipk --force-depends" > x86_64/install.sh
+            chmod +x x86_64/install.sh
+            cp x86_64/install.sh a53/
   
       - name: Create self-extracting archives
         run: |
@@ -132,8 +124,8 @@ jobs:
             echo "APP_VERSION=$appversion" >> $GITHUB_ENV
             release_name=$(TZ="Asia/Shanghai" date +'%Y-%m-%d %H:%M Build')
             echo "RELEASE_NAME=$release_name" >> $GITHUB_ENV
-            ./makeself.sh x86_64/ x86_64_$appversion.run "by github action" ./install.sh
-            ./makeself.sh a53/ aarch64_cortex-a53_$appversion.run "by github action" ./install.sh
+            ./makeself.sh x86_64/ tailscale_x86_64_$appversion.run "by github action" ./install.sh
+            ./makeself.sh a53/ tailscale_aarch64_cortex-a53_$appversion.run "by github action" ./install.sh
             
             
       
