@@ -1,9 +1,6 @@
 #=================================================
-# https://github.com/wukongdaily/RunFilesBuilder
+# https://github.com//Jaykwok2999/RunFilesBuilder
 # Description: Build RunFiles using GitHub Actions
-# Lisence: MIT
-# Author: wukongdaily
-# Blog: wkdaily.cpolar.top
 #=================================================
 name: Make ShadowsocksPlus+ run files
 
@@ -207,7 +204,7 @@ jobs:
         with:
           tag_name: ${{ env.APP_VERSION }}
           name: "SSRP-${{ env.APP_VERSION }}"
-          body: "![Github](https://img.shields.io/badge/SSRP.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) [![Github](https://img.shields.io/badge/国内加速站下载-FC7C0D?logo=github&logoColor=fff&labelColor=000&style=for-the-badge)](https://wkdaily.cpolar.top/archives/1) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/${{ env.APP_VERSION }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
+          body: "![Github](https://img.shields.io/badge/SSRP.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/${{ env.APP_VERSION }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
           files: makeself/*.run
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
