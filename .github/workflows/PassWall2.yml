@@ -1,5 +1,6 @@
 #=================================================
 # https://github.com//Jaykwok2999/RunFilesBuilder
+# Description: Build RunFiles using GitHub Actions
 #=================================================
 name: Make PassWall2 run files
 
