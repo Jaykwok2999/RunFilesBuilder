@@ -116,9 +116,9 @@ jobs:
       - name: Create self-extracting packages
         run: |
           cd makeself
-          ./makeself.sh AdGuardHome_x86_64/ AdGuardHome_${{ env.LATEST_TAG }}_x86_64.run "by wukongdaily github action" ./install.sh
-          ./makeself.sh AdGuardHome_aarch64/ AdGuardHome_${{ env.LATEST_TAG }}_aarch64.run "by wukongdaily github action" ./install.sh
-          ./makeself.sh AdGuardHome_aarch32/ AdGuardHome_${{ env.LATEST_TAG }}_aarch32.run "by wukongdaily github action" ./install.sh
+          ./makeself.sh AdGuardHome_x86_64/ AdGuardHome_${{ env.LATEST_TAG }}_x86_64.run "by Jaykwok2999 github action" ./install.sh
+          ./makeself.sh AdGuardHome_aarch64/ AdGuardHome_${{ env.LATEST_TAG }}_aarch64.run "by Jaykwok2999 github action" ./install.sh
+          ./makeself.sh AdGuardHome_aarch32/ AdGuardHome_${{ env.LATEST_TAG }}_aarch32.run "by Jaykwok2999 github action" ./install.sh
           
       - name: Check file sizes
         run: |
@@ -127,7 +127,7 @@ jobs:
       - name: Fetch latest release details
         id: fetch_release_details
         run: |
-          extra_content="![Github](https://img.shields.io/badge/AdGuardHome.run-123456?logo=github&logoColor=fff&labelColor=8470FF&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/wukongdaily/RunFilesBuilder/AdGuardHome_${{ env.LATEST_TAG }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
+          extra_content="![Github](https://img.shields.io/badge/AdGuardHome.run-123456?logo=github&logoColor=fff&labelColor=8470FF&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/Jaykwok2999/RunFilesBuilder/AdGuardHome_${{ env.LATEST_TAG }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
           sed -i "1i$extra_content" "${{ github.workspace }}/info1.md"
 
       - name: Print release notes
