@@ -40,12 +40,12 @@ jobs:
 
       - name: Download x86_64 specific packages
         run: |
-          wget -P x86_64 https://dl.openwrt.ai/packages-24.10/${{ env.version }}/kiddin9/tailscale_1.82.5-r15_x86_64.ipk
+          wget -P x86_64 https://dl.openwrt.ai/packages-24.10/kiddin9/tailscale_1.82.5-r15_x86_64.ipk
           
 
       - name: Download arm64 specific packages
         run: |
-          wget -P aarch64_cortex-a53 https://dl.openwrt.ai/packages-24.10/${{ env.version }}/kiddin9/tailscale_1.82.5-r15_aarch64_cortex-a53.ipk
+          wget -P aarch64_cortex-a53 https://dl.openwrt.ai/packages-24.10/kiddin9/tailscale_1.82.5-r15_aarch64_cortex-a53.ipk
           
 
       - name: Create install.sh script
