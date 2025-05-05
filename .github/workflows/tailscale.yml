@@ -120,7 +120,7 @@ jobs:
           opkg install *.ipk
           EOF
           chmod +x x86_64/install.sh
-          cp x86_64/install.sh tailscale_aarch64_cortex-a53/install.sh
+          cp x86_64/install.sh aarch64_cortex-a53/install.sh
   
       - name: Create self-extracting archives
         run: |
@@ -132,8 +132,8 @@ jobs:
             echo "APP_VERSION=$appversion" >> $GITHUB_ENV
             release_name=$(TZ="Asia/Shanghai" date +'%Y-%m-%d %H:%M Build')
             echo "RELEASE_NAME=$release_name" >> $GITHUB_ENV
-            ./makeself.sh x86_64/ tailscale_x86_64_$appversion.run "by github action" ./install.sh
-            ./makeself.sh a53/ tailscale_aarch64_cortex-a53_$appversion.run "by github action" ./install.sh
+            ./makeself.sh x86_64/ x86_64_$appversion.run "by github action" ./install.sh
+            ./makeself.sh a53/ aarch64_cortex-a53_$appversion.run "by github action" ./install.sh
             
             
       
