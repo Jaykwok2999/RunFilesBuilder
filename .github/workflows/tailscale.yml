@@ -110,7 +110,7 @@ jobs:
       
       - name: Create install.sh 
         run: |
-            echo -e "#!/bin/sh\n\nopkg update\nif [ \$? -ne 0 ]; then\n    echo \"update failed\"\n    exit 1\nfi\nopkg install depends/*.ipk --force-depends\nopkg install *.ipk --force-depends" > x86_64/install.sh
+            echo -e "#!/bin/sh\n\nopkg update\nif [ \$? -ne 0 ]; then\n    echo \"update failed\"\n    exit 1\nfi\nopkg install depends/*.ipk \nopkg install *.ipk " > x86_64/install.sh
             chmod +x x86_64/install.sh
             cp x86_64/install.sh a53/
   
