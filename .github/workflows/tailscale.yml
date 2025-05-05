@@ -110,7 +110,7 @@ jobs:
       
       - name: Create install.sh 
         run: |
-            echo -e "update\n \nopkg install depends/*.ipk \nopkg install *.ipk " > x86_64/install.sh
+            echo -e "opkg update \nopkg install depends/*.ipk \nopkg install *.ipk " > x86_64/install.sh
             chmod +x x86_64/install.sh
             cp x86_64/install.sh a53/
   
