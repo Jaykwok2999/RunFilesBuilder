@@ -1,0 +1,101 @@
+#=================================================
+# https://github.com//Jaykwok2999/RunFilesBuilder
+# Description: Build RunFiles using GitHub Actions
+#=================================================
+name: Make Tailscale
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: '这里是包版本'
+        required: false
+        default: 'packages-24.10'  
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Get latest release version
+        id: get_version
+        run: |
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/asvow/luci-app-tailscale/releases/latest | jq -r .tag_name)
+          echo "version=${LATEST_VERSION}" >> $GITHUB_ENV
+          echo "Latest version: ${LATEST_VERSION}"
+
+      - name: Create work directories
+        run: |
+          mkdir -p x86_64 aarch64_cortex-a53
+          
+      - name: Download common packages
+        run: |
+          # 下载公共包
+          wget -P x86_64 https://github.com/asvow/luci-app-tailscale/releases/download/${{ env.version }}/luci-app-tailscale_1.2.4_all.ipk
+          wget -P x86_64 https://github.com/asvow/luci-app-tailscale/releases/download/${{ env.version }}/luci-i18n-tailscale-zh-cn_250424.53698_all.ipk
+          
+          
+          # 复制公共包到 arm64 目录
+          cp x86_64/*.ipk aarch64_cortex-a53/
+
+      - name: Download x86_64 specific packages
+        run: |
+          wget -P x86_64 https://dl.openwrt.ai/packages-24.10/${{ env.version }}/kiddin9/tailscale_1.82.5-r15_x86_64.ipk
+          
+
+      - name: Download arm64 specific packages
+        run: |
+          wget -P aarch64_cortex-a53 https://dl.openwrt.ai/packages-24.10/${{ env.version }}/kiddin9/tailscale_1.82.5-r15_aarch64_cortex-a53.ipk
+          
+
+      - name: Create install.sh script
+        run: |
+          cat << 'EOF' > aarch64_cortex-a53/install.sh
+          #!/bin/sh
+          
+          opkg update
+          if [ $? -ne 0 ]; then
+              echo "更新失败"
+              exit 1
+          fi
+          
+          opkg install *.ipk
+          if [ $? -ne 0 ]; then
+              echo "安装失败"
+              exit 1
+          fi
+          
+          echo "Tailscale 安装完成!"
+          EOF
+          
+          chmod +x x86_64/install.sh
+          cp x86_64/install.sh x86_64/install.sh
+          chmod +x aarch64_cortex-a53/install.sh
+
+      - name: Clone makeself repository
+        run: git clone https://github.com/megastep/makeself.git
+
+      - name: Create self-extracting installers
+        run: |
+          mv x86_64 makeself/
+          mv aarch64_cortex-a53 makeself/
+          cd makeself
+          ./makeself.sh x86_64/ x86_64-${{ env.version }}.run "Tailscale Installer" ./install.sh
+          ./makeself.sh aarch64_cortex-a53/ tailscale-aarch64_cortex-a53-${{ env.version }}.run "Tailscale Installer" ./install.sh
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.version }}
+          name: "Tailscale-${{ env.version }}"
+          body: |
+            Tailscale 安装包 ${{ env.version }}
+            
+            - x86_64 版本
+            - aarch64_cortex-a53 版本
+          files: |
+            makeself/*.run
+          draft: false
+          prerelease: false
