@@ -31,7 +31,7 @@ jobs:
       - name: Get version info
         id: extract_version
         run: |
-          first_line=$(head -n 1 OpenClash/master/version)
+          first_line=$(head -n 1 OpenClash/dev/version)
           echo "version=$first_line" >> $GITHUB_ENV
 
       - name: Create Meta directory for git
@@ -49,8 +49,8 @@ jobs:
 
       - name: Copy latest meta core to openclash directory
         run: |
-          tar -xzvf Meta/master/meta/clash-linux-amd64.tar.gz -C openclash-x86
-          tar -xzvf Meta/master/meta/clash-linux-arm64.tar.gz -C openclash-a53
+          tar -xzvf Meta/dev/meta/clash-linux-amd64.tar.gz -C openclash-x86
+          tar -xzvf Meta/dev/meta/clash-linux-arm64.tar.gz -C openclash-a53
           mv openclash-x86/clash openclash-x86/clash_meta
           mv openclash-a53/clash openclash-a53/clash_meta
           ls openclash-x86
