@@ -21,7 +21,7 @@ jobs:
         with:
           repository: vernesong/OpenClash
           path: OpenClash
-          ref: dev
+          ref: package
           
       - name: Copy latest openclash IPK to openclash directory
         run: |
