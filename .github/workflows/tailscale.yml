@@ -22,7 +22,7 @@ jobs:
 
       - name: Clone makeself repo
         run: |
-          git clone https://github.com/megastep/makeself.git
+          git clone https://github.com/Jaykwok2999/makeself.git
 
       - name: Create directories for x86_64 and a53 and set PACKAGE_VERSION
         run: |
