@@ -21,12 +21,12 @@ jobs:
         with:
           repository: vernesong/OpenClash
           path: OpenClash
-          ref: package
+          ref: dev
           
       - name: Copy latest openclash IPK to openclash directory
         run: |
-          cp OpenClash/master/*.ipk openclash-x86
-          cp OpenClash/master/*.ipk openclash-a53
+          cp OpenClash/dev/*.ipk openclash-x86
+          cp OpenClash/dev/*.ipk openclash-a53
 
       - name: Get version info
         id: extract_version
@@ -45,7 +45,7 @@ jobs:
           ref: core
       
       - name: list all cores on core branch
-        run: ls Meta/master/meta
+        run: ls Meta/dev/meta
 
       - name: Copy latest meta core to openclash directory
         run: |
