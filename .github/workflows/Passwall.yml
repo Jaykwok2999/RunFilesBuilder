@@ -38,6 +38,7 @@ jobs:
         run: |
           mkdir -p passwall_x86_64/depends passwall_x86_64/main
           unzip downloads/passwall_packages_ipk_x86_64.zip -d passwall_x86_64/depends
+          cp  .github/passwall/*.ipk passwall_x86_64/depends
           rm downloads/passwall_packages_ipk_x86_64.zip
           cp downloads/luci-19.07*.ipk passwall_x86_64/main/
 
