@@ -38,7 +38,9 @@ jobs:
         run: |
           mkdir -p passwall_x86_64/depends passwall_x86_64/main
           unzip downloads/passwall_packages_ipk_x86_64.zip -d passwall_x86_64/depends
-          cp .github/passwall/shadowsocks-libev-ss-*.ipk passwall_x86_64/depends
+          cp .github/passwall/shadowsocks-libev-ss-server_3.3.5-r13_x86_64.ipk passwall_x86_64/depends
+          cp .github/passwall/shadowsocks-libev-ss-local_3.3.5-r13_x86_64.ipk passwall_x86_64/depends
+          cp .github/passwall/shadowsocks-libev-ss-redir_3.3.5-r13_x86_64.ipk passwall_x86_64/depends
           rm downloads/passwall_packages_ipk_x86_64.zip
           cp downloads/luci-19.07*.ipk passwall_x86_64/main/
 
