@@ -32,7 +32,7 @@ jobs:
           curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*passwall_packages_ipk_x86_64.zip"' | cut -d '"' -f 4)
           curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*passwall_packages_ipk_aarch64_cortex-a53.zip"' | cut -d '"' -f 4)
           curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*luci-app-passwall.*\.ipk"' | head -1 | cut -d '"' -f 4)
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*luci-app-passwall.*\.ipk"' | tail -1 | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*luci-i18n-passwall.*\.ipk"' | tail -1 | cut -d '"' -f 4)
       
       - name: Organize files for x86_64
         run: |
