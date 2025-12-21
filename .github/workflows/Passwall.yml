@@ -41,7 +41,7 @@ jobs:
           rm downloads/passwall_packages_ipk_x86_64.zip
           cp downloads/luci-app-passwall*.ipk passwall_x86_64/main/
           cp downloads/luci-i18n-passwall*.ipk passwall_x86_64/main/
-          cp -rf .github/workflows/passwall/shadowsocks-libev-ss*.ipk -d passwall_x86_64/depends
+          cp -rf .github/workflows/passwall/x86_64/shadowsocks-libev-ss*.ipk -d passwall_x86_64/depends
 
       - name: Organize files for aarch64_cortex-a53
         run: |
@@ -50,6 +50,7 @@ jobs:
           rm downloads/passwall_packages_ipk_aarch64_cortex-a53.zip
           cp downloads/luci-app-passwall*.ipk passwall_aarch64/main/
           cp downloads/luci-i18n-passwall*.ipk passwall_aarch64/main/
+          cp -rf .github/workflows/passwall/aarch64_cortex-a53/shadowsocks-libev-ss*.ipk -d passwall_aarch64/depends
 
       - name: Create install.sh scripts
         run: |
