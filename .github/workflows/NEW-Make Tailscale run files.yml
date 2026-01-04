@@ -34,10 +34,10 @@ jobs:
           cd downloads
 
           # 下载 x86_64 ipk
-          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\x86_64.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\.x86_64.ipk"' | cut -d '"' -f 4)
 
           # 下载 aarch64_cortex-a53 ipk
-          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\.aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
 
 
           # 下载luci app ipk
