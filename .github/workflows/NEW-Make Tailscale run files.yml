@@ -28,34 +28,25 @@ jobs:
       - name: Clone makeself repository
         run: git clone https://github.com/megastep/makeself.git
 
-      - name: Download latest Tailscale files
+      - name: Clone makeself repository
+        run: git clone https://github.com/megastep/makeself.git
+
+      - name: Download latest Passwall files
         run: |
           mkdir -p downloads
           cd downloads
 
           # 下载 x86_64 ipk
-          curl -L -O $(
-            curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("tailscale.*.x86_64.ipk")) | .browser_download_url'
-          )
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\.x86_64.ipk"' | cut -d '"' -f 4)
 
           # 下载 aarch64_cortex-a53 ipk
-          curl -L -O $(
-            curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("tailscale.*.aarch64_cortex-a53.ipk")) | .browser_download_url'
-          )
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\.aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
 
 
           # 下载luci app ipk
-          curl -L -O $(
-            curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("luci-.*-tailscale.*\\.ipk")) | .browser_download_url' | head -1
-          )
+          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*luci-app-passwall.*\.ipk"' | head -1 | cut -d '"' -f 4)
           # 下载luci语言包ipk
-          curl -L -O $(
-            curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("luci-.*-tailscale-zh-cn.*\\.ipk")) | .browser_download_url' | tail -1
-          )
+          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-passwall/releases/latest | grep -oP '"browser_download_url":\s*".*luci-i18n-passwall.*\.ipk"' | tail -1 | cut -d '"' -f 4)
 
 
       - name: Organize files for x86_64
