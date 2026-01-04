@@ -3,7 +3,7 @@
 # Description: Build RunFiles using GitHub Actions
 #=================================================
 
-name: NEW-Make Tailscale run files
+name: NEW Make Tailscale run files
 
 on:
   workflow_dispatch:
@@ -29,8 +29,8 @@ jobs:
         run: |
           mkdir -p downloads
           cd downloads
-          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\x86_64.ipk"' | cut -d '"' -f 4)
-          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\.x86_64.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale.*\.aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
           curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*luci-app-tailscale.*\.ipk"' | head -1 | cut -d '"' -f 4)
           curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*luci-i18n-tailscale.*\.ipk"' | tail -1 | cut -d '"' -f 4)
       
@@ -39,14 +39,14 @@ jobs:
           mkdir -p tailscale_x86_64/depends tailscale_x86_64/main
           cp downloads/luci-app-tailscale*.ipk tailscale_x86_64/main/
           cp downloads/luci-i18n-tailscale*.ipk tailscale_x86_64/main
-          cp downloads/tailscale.*\x86_64.ipk tailscale_x86_64/main/
+          cp downloads/tailscale.*\.x86_64.ipk tailscale_x86_64/main/
 
       - name: Organize files for aarch64_cortex-a53
         run: |
           mkdir -p tailscale_aarch64/depends tailscale_aarch64/main
           cp downloads/luci-app-tailscale*.ipk tailscale_aarch64/main/
           cp downloads/luci-i18n-tailscale*.ipk tailscale_aarch64/main/
-          cp downloads/tailscale.*\aarch64_cortex-a53.ipk tailscale_aarch64/main/
+          cp downloads/tailscale.*\.aarch64_cortex-a53.ipk tailscale_aarch64/main/
 
       - name: Create install.sh scripts
         run: |
