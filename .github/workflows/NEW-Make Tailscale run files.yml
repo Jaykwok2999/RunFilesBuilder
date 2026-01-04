@@ -26,12 +26,9 @@ jobs:
           echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
 
       - name: Clone makeself repository
-        run: git clone https://github.com/megastep/makeself.git
+        run: git clone https://github.com/Jaykwok2999/makeself.git
 
-      - name: Clone makeself repository
-        run: git clone https://github.com/megastep/makeself.git
-
-      - name: Download latest Passwall files
+      - name: Download latest Tailscale files
         run: |
           mkdir -p downloads
           cd downloads
