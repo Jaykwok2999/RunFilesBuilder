@@ -36,13 +36,13 @@ jobs:
           # 下载 x86_64 ipk
           curl -L -O $(
             curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("tailscale.*.ipk")) | .browser_download_url'
+            | jq -r '.assets[] | select(.name | test("tailscale.*.x86_64.ipk")) | .browser_download_url'
           )
 
           # 下载 aarch64_cortex-a53 ipk
           curl -L -O $(
             curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("tailscale.*.ipk")) | .browser_download_url'
+            | jq -r '.assets[] | select(.name | test("tailscale.*.aarch64_cortex-a53.ipk")) | .browser_download_url'
           )
 
 
