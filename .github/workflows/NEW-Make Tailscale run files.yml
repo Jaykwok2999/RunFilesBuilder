@@ -20,7 +20,7 @@ jobs:
         id: fetch_latest_tag
         run: |
           latest_tag=$(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | jq -r '.tag_name')
-          echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
+          echo "LATEST_TAG=v$latest_tag" >> $GITHUB_ENV
 
       - name: Clone makeself repository
         run: git clone https://github.com/megastep/makeself.git
