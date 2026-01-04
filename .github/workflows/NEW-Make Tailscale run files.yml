@@ -54,7 +54,7 @@ jobs:
           # 下载luci语言包ipk
           curl -L -O $(
             curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest \
-            | jq -r '.assets[] | select(.name | test("luci-.*-tailscale.*\\.ipk")) | .browser_download_url' | tail -1
+            | jq -r '.assets[] | select(.name | test("luci-.*-tailscale-zh-cn.*\\.ipk")) | .browser_download_url' | tail -1
           )
 
 
@@ -62,11 +62,13 @@ jobs:
         run: |
           mkdir -p tailscale_x86_64/depends tailscale_x86_64/main
           cp downloads/luci-*.ipk tailscale_x86_64/main/
+          cp downloads/tailscale.*\\.ipk tailscale_x86_64/depends/
 
       - name: Organize files for aarch64_cortex-a53
         run: |
           mkdir -p tailscale_aarch64/depends tailscale_aarch64/main
           cp downloads/luci-*.ipk tailscale_aarch64/main/
+          cp downloads/tailscale.*\\.ipk tailscale_aarch64/depends/
 
       - name: Create install.sh scripts
         run: |
@@ -77,10 +79,6 @@ jobs:
               echo "update failed。"
               exit 1
           fi
-          opkg install iptables-mod-tproxy
-          opkg install iptables-mod-socket
-          opkg install iptables-mod-iprange
-          opkg install iptables-mod-conntrack-extra
           opkg install depends/*.ipk
           opkg install main/*.ipk
           EOF
