@@ -49,13 +49,13 @@ jobs:
         run: |
           mkdir -p tailscale_x86_64/depends tailscale_x86_64/main
           cp downloads/luci-*.ipk tailscale_x86_64/main/
-          cp downloads/tailscale_1.92.3_x86_64.ipk tailscale_x86_64/depends/
+          cp downloads/tailscale_1.92.5_x86_64.ipk tailscale_x86_64/depends/
 
       - name: Organize files for aarch64_cortex-a53
         run: |
           mkdir -p tailscale_aarch64/depends tailscale_aarch64/main
           cp downloads/luci-*.ipk tailscale_aarch64/main/
-          cp downloads/tailscale_1.92.3_aarch64_cortex-a53.ipk tailscale_aarch64/depends/
+          cp downloads/tailscale_1.92.5_aarch64_cortex-a53.ipk tailscale_aarch64/depends/
 
       - name: Create install.sh scripts
         run: |
