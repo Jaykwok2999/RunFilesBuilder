@@ -10,6 +10,8 @@ name: NEW Make Tailscale run files
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: 49 16 * * *
 
 jobs:
   build:
