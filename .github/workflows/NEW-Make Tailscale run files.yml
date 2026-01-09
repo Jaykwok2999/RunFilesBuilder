@@ -1,9 +1,6 @@
 #=================================================
-# https://github.com/wukongdaily/RunFilesBuilder
+# https://github.com//Jaykwok2999/RunFilesBuilder
 # Description: Build RunFiles using GitHub Actions
-# Lisence: MIT
-# Author: wukongdaily
-# Blog: wkdaily.cpolar.cn
 #=================================================
 
 name: NEW Make Tailscale run files
