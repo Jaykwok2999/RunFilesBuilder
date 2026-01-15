@@ -21,7 +21,7 @@ jobs:
       - name: Fetch latest release tag from Tailscale
         id: fetch_latest_tag
         run: |
-          latest_tag=$(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | jq -r '.tag_name')
+          latest_tag=$(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | jq -r '.tag_name')
           echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
 
       - name: Clone makeself repository
@@ -33,16 +33,16 @@ jobs:
           cd downloads
 
           # 下载 x86_64 ipk
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_1.92.5_x86_64.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_1.92.5_x86_64.ipk"' | cut -d '"' -f 4)
 
           # 下载 aarch64_cortex-a53 ipk
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_1.92.5_aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_1.92.5_aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
 
 
           # 下载luci app ipk
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*luci-app-tailscale.*\.ipk"' | head -1 | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*luci-app-tailscale.*\.ipk"' | head -1 | cut -d '"' -f 4)
           # 下载luci语言包ipk
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*luci-i18n-tailscale-zh-cn.*\.ipk"' | tail -1 | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/whzhni1/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*luci-i18n-tailscale-zh-cn.*\.ipk"' | tail -1 | cut -d '"' -f 4)
 
 
       - name: Organize files for x86_64
