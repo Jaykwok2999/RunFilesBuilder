@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     outputs:
-      ssrp_version: ${{ steps.setver.outputs.ssrp_version }}
+      passwall_version: ${{ steps.setver.outputs.passwall_version }}
 
     steps:
       - name: Checkout repository
@@ -36,11 +36,11 @@ jobs:
           rel=$(grep -E '^PKG_RELEASE:=' Makefile | cut -d= -f2 | tr -d ' ')
 
           fullver="${ver}-r${rel}"
-          echo "ssrp_version=$fullver" >> $GITHUB_ENV
+          echo "passwall_version=$fullver" >> $GITHUB_ENV
     
 
       - name: Show version
-        run: echo "版本号是：${ssrp_version}"
+        run: echo "版本号是：${passwall_version}"
 
       - name: Create directories for x86_64 and a53 and set PACKAGE_VERSION
         run: |
@@ -221,16 +221,16 @@ jobs:
       - name: Create self-extracting archives
         run: |
             cd makeself
-            ./makeself.sh x86_64/ ssrp_x86_64-${ssrp_version}.run "by github action" ./install.sh
-            ./makeself.sh a53/ ssrp_aarch64_cortex-a53-${ssrp_version}.run "by github action" ./install.sh
+            ./makeself.sh x86_64/ passwall_x86_64-${passwall_version}.run "by github action" ./install.sh
+            ./makeself.sh a53/ passwall_aarch64_cortex-a53-${passwall_version}.run "by github action" ./install.sh
                 
       
       - name: Upload all .run files to GitHub Release
         uses: softprops/action-gh-release@v2.1.0
         with:
           tag_name: "Passwall"
-          name: PASSWALL-${{ env.ssrp_version }}
-          body: "![Github](https://img.shields.io/badge/PASSWALL.run-123456?logo=github&logoColor=fff&labelColor=blue&style=for-the-badge) [![Github](https://img.shields.io/badge/国内加速站下载-FC7C0D?logo=github&logoColor=fff&labelColor=000&style=for-the-badge)](https://wkdaily.cpolar.cn/archives/1) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/Jaykwok2999/RunFilesBuilder/passwall/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
+          name: PASSWALL-${{ env.passwall_version }}
+          body: "![Github](https://img.shields.io/badge/Passwall.run-123456?logo=github&logoColor=fff&labelColor=green&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/Jaykwok2999/RunFilesBuilder/${{ env.LATEST_TAG }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
           files: makeself/*.run
           token: ${{ secrets.GITHUB_TOKEN }}
 
