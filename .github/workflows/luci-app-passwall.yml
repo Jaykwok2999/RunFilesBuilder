@@ -2,7 +2,7 @@
 # https://github.com//Jaykwok2999/RunFilesBuilder
 # Description: Build RunFiles using GitHub Actions
 #=================================================
-name: Make Tailscale run files
+name: Make PassWall app run files
 
 on:
   workflow_dispatch:
