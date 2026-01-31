@@ -229,7 +229,7 @@ jobs:
         uses: softprops/action-gh-release@v2.1.0
         with:
           tag_name: "Passwall"
-          name: PASSWALL-${{ env.passwall_version }}
+          name: PassWall-${{ env.passwall_version }}
           body: "![Github](https://img.shields.io/badge/Passwall.run-123456?logo=github&logoColor=fff&labelColor=green&style=for-the-badge) ![GitHub Downloads (all assets, specific tag)](https://img.shields.io/github/downloads/Jaykwok2999/RunFilesBuilder/${{ env.LATEST_TAG }}/total?style=for-the-badge&labelColor=black&color=%2325c2a0)"
           files: makeself/*.run
           token: ${{ secrets.GITHUB_TOKEN }}
