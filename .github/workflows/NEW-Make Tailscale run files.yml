@@ -33,10 +33,10 @@ jobs:
           cd downloads
 
           # 下载 x86_64 ipk
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_*_x86_64.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_*\_x86_64.ipk"' | cut -d '"' -f 4)
 
           # 下载 aarch64_cortex-a53 ipk
-          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_*_aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
+          curl -LO $(curl -s https://api.github.com/repos/Jaykwok2999/luci-app-tailscale/releases/latest | grep -oP '"browser_download_url":\s*".*tailscale_*\_aarch64_cortex-a53.ipk"' | cut -d '"' -f 4)
 
 
           # 下载luci app ipk
@@ -49,13 +49,13 @@ jobs:
         run: |
           mkdir -p tailscale_x86_64/depends tailscale_x86_64/main
           cp downloads/luci-*.ipk tailscale_x86_64/main/
-          cp downloads/tailscale_*_x86_64.ipk tailscale_x86_64/depends/
+          cp downloads/tailscale_*\_x86_64.ipk tailscale_x86_64/depends/
 
       - name: Organize files for aarch64_cortex-a53
         run: |
           mkdir -p tailscale_aarch64/depends tailscale_aarch64/main
           cp downloads/luci-*.ipk tailscale_aarch64/main/
-          cp downloads/tailscale_*_aarch64_cortex-a53.ipk tailscale_aarch64/depends/
+          cp downloads/tailscale_*\_aarch64_cortex-a53.ipk tailscale_aarch64/depends/
 
       - name: Create install.sh scripts
         run: |
